@@ -45,7 +45,6 @@ es_client2 = EsClient(args.es2,
                       index_name='hired_staging_candidate')
 
 if __name__ == "__main__":
-    logging.info("Running main")
     queries = list(queries_bucket.objects.filter(Prefix='data_catalog/queries'))
     for query_content in queries:
         obj = client.get_object(Bucket='hired-etl', Key=query_content.key)
@@ -62,6 +61,6 @@ if __name__ == "__main__":
                 "Failed for {0} for k {1} with score {2}".format(query_content.key, k,
                                                                  relevancy_score))
 
+    score = sum([rs for rs,k in discrepancies]) / float(len(discrepancies))
+    print(score)
 
-
-        score = sum() / float(len(l))
